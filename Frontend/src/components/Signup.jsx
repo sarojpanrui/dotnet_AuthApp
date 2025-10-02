@@ -6,7 +6,7 @@ const Signup = () => {
     username: "",
     email: "",
     password: "",
-    role: 1, // default to customer as number
+    role: "", // default to customer as number
     phone: "",
   });
 
@@ -17,22 +17,35 @@ const Signup = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
+
+
     // Convert role to number
     setFormData({
       ...formData,
-      [name]: name === "role" ? Number(value) : value,
+      [name]: value
     });
+
+    console.log(formData)
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+    console.log(e.target.value);
     setLoading(true);
     setError("");
     setSuccess(false);
 
     try {
       // Send payload as-is (role is already number)
-      const response = await axios.post("http://localhost:5066/api/Auth/register", formData);
+      const payload = {
+        ...formData,
+        role:Number(formData.role)
+
+      }
+
+      console.log(payload);
+      const response = await axios.post("http://localhost:5066/api/Auth/register", payload);
 
       console.log("Signup Success:", response.data);
       setSuccess(true);
@@ -42,7 +55,7 @@ const Signup = () => {
         username: "",
         email: "",
         password: "",
-        role: 1,
+        role: "",
         phone: "",
       });
     } catch (err) {

@@ -100,3 +100,4 @@ E:\dotnet-back\AuthApp\backend\obj\Debug\net9.0\refint\AuthApp.dll
 E:\dotnet-back\AuthApp\backend\obj\Debug\net9.0\AuthApp.pdb
 E:\dotnet-back\AuthApp\backend\obj\Debug\net9.0\AuthApp.genruntimeconfig.cache
 E:\dotnet-back\AuthApp\backend\obj\Debug\net9.0\ref\AuthApp.dll
+E:\dotnet-back\AuthApp\backend\obj\Debug\net9.0\AuthApp.sourcelink.json

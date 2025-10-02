@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<AuthDataBaseSettings>(
     builder.Configuration.GetSection("AuthDataBaseSettings"));
 
-    
+
 builder.Services.AddSingleton<AuthServices>();
 
 // 2️⃣ Configure JWT settings
@@ -55,7 +55,14 @@ builder.Services.AddCors(options =>
 });
 
 // 4️⃣ Add controllers, Swagger, Authorization
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+.AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new System.Text.Json.Serialization.JsonStringEnumConverter());
+    });
+
+
+    
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthorization();
