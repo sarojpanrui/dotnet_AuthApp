@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -7,6 +9,8 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,14 +22,27 @@ const Login = () => {
       const response = await axios.post(
         "http://localhost:5066/api/Auth/login",
         { email, password },
-        { withCredentials: true } // ✅ important: send cookies
+        { withCredentials: true } //  important: send cookies
       );
 
-      console.log("Login success:", response.data);
+      // console.log("Login success:");
       setSuccess(true);
 
-      // Optionally, redirect after login
-      // window.location.href = "/dashboard";
+      const token = response.data.token;
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      // console.log(payload.role_id);
+      const role = payload.role_id;
+
+      if(role == 0){
+        navigate('/admin');
+      }else{
+        navigate('/customer');
+      }
+
+
+      
+    
+
 
     } catch (err) {
       setError("Invalid email or password");
